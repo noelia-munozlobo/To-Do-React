@@ -1,0 +1,72 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #e6e6fa; /* lavanda clarito */
+  margin: 0;
+  padding: 0;
+}
+
+.contenedor-app {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 10px;
+  background: white;
+  border: 2px solid purple;
+  border-radius: 5px;
+}
+
+/* Encabezado */
+.encabezado {
+  text-align: center;
+  background: purple;
+  color: white;
+  padding: 10px;
+}
+
+/* Formulario para escribir tareas */
+.entrada-tarea {
+  margin-top: 10px;
+  display: flex;
+}
+
+.entrada-tarea input {
+  flex: 1;
+  padding: 5px;
+}
+
+.entrada-tarea button {
+  background: purple;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+/* Lista de tareas */
+.lista-tareas {
+  margin-top: 15px;
+  padding: 0;
+  list-style: none;
+}
+
+.tarea {
+  border: 1px solid purple;
+  padding: 5px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tarea.completada span {
+  text-decoration: line-through;
+  color: gray;
+}
+
+/* Pie */
+.pie {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 14px;
+  color: purple;
+}
+

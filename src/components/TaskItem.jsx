@@ -1,0 +1,40 @@
+import { useState } from "react";
+
+function TaskItem({ tarea, cambiarEstado, borrarTarea, editarTexto }) {
+  const [editando, setEditando] = useState(false);
+  const [nuevoTexto, setNuevoTexto] = useState(tarea.texto);
+
+  const guardarEdicion = () => {
+    if (!nuevoTexto.trim()) return;
+    // Llama al servicio a través de la prop del padre
+    editarTexto(tarea.id, nuevoTexto);
+    setEditando(false);
+  };
+
+  return (
+    <li className={`tarea ${tarea.completada ? "completada" : ""}`}>
+      {editando ? (
+        <>
+          <input
+            type="text"
+            value={nuevoTexto}
+            onChange={(e) => setNuevoTexto(e.target.value)}
+          />
+          <button onClick={guardarEdicion}>Guardar cambios</button>
+          <button onClick={() => setEditando(false)}>Cancelar</button>
+        </>
+      ) : (
+        <>
+          <span onClick={() => cambiarEstado(tarea.id)}>{tarea.texto}</span>
+          <div>
+            <button onClick={() => setEditando(true)}>Editar</button>
+            <button onClick={() => borrarTarea(tarea.id)}>Eliminar</button>
+          </div>
+        </>
+      )}
+    </li>
+  );
+}
+
+export default TaskItem;
+
