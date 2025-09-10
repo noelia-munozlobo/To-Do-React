@@ -6,13 +6,18 @@ function TaskItem({ tarea, cambiarEstado, borrarTarea, editarTexto }) {
 
   const guardarEdicion = () => {
     if (!nuevoTexto.trim()) return;
-    // Llama al servicio a través de la prop del padre
     editarTexto(tarea.id, nuevoTexto);
     setEditando(false);
   };
 
   return (
     <li className={`tarea ${tarea.completada ? "completada" : ""}`}>
+      <input
+        type="checkbox"
+        checked={tarea.completada}
+        onChange={() => cambiarEstado(tarea.id)}
+      />
+
       {editando ? (
         <>
           <input
@@ -25,7 +30,7 @@ function TaskItem({ tarea, cambiarEstado, borrarTarea, editarTexto }) {
         </>
       ) : (
         <>
-          <span onClick={() => cambiarEstado(tarea.id)}>{tarea.texto}</span>
+          <span>{tarea.texto}</span>
           <div>
             <button onClick={() => setEditando(true)}>Editar</button>
             <button onClick={() => borrarTarea(tarea.id)}>Eliminar</button>
@@ -35,6 +40,4 @@ function TaskItem({ tarea, cambiarEstado, borrarTarea, editarTexto }) {
     </li>
   );
 }
-
 export default TaskItem;
-

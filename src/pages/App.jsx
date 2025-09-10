@@ -12,14 +12,21 @@ import {
 
 function App() {
   const [tareas, setTareas] = useState([]);
+  const [tareasCompletadas, setTareasCompletadas] = useState([]);
+const [tareasPendientes, setTareasPendientes] = useState([]);
 
   // Cargar tareas al iniciar
   useEffect(() => {
     cargarTareas();
   }, []);
 
+  //funcion para cargar tareas
   async function cargarTareas() {
     const datos = await obtenerTareas();
+    const filtroPendientes= datos.filter((tarea)=>tarea.completada === false)
+    setTareasPendientes(filtroPendientes)
+    const filtroCompletas = datos.filter((tarea)=>tarea.completada === true)
+    setTareasCompletadas(filtroCompletas)
     setTareas(datos);
   }
 
@@ -67,16 +74,33 @@ function App() {
     <div className="contenedor-app">
       <Header />
       <TaskInput agregarTarea={agregar} />
-      {tareas.length === 0 ? (
+      {tareasPendientes.length === 0 ? (
         <p className="mensaje-vacio">No existen tareas</p>
       ) : (
         <TaskList
-          tareas={tareas}
+          tareas={tareasPendientes}
           cambiarEstado={cambiarEstado}
           borrarTarea={borrar}
           editarTexto={editarTexto}
         />
+
       )}
+      <div>
+        <header className="encabezado">
+          <h1>Mi Lista de Tareas Completadas</h1>
+          {tareasCompletadas.length === 0 ? (
+            <p className="mensaje-vacio">No existen tareas</p>
+          ) : (
+            <TaskList
+              tareas={tareasCompletadas}
+              cambiarEstado={cambiarEstado}
+              borrarTarea={borrar}
+              editarTexto={editarTexto}
+            />
+
+          )}
+        </header>
+      </div>
       <Footer />
     </div>
   );

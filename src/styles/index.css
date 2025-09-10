@@ -1,60 +1,78 @@
+
 body {
   font-family: Arial, sans-serif;
-  background-color: #e6e6fa; /* lavanda clarito */
+  background-color: #f4f4f4;
   margin: 0;
   padding: 0;
 }
 
+
 .contenedor-app {
-  max-width: 500px;
-  margin: 20px auto;
-  padding: 10px;
-  background: white;
-  border: 2px solid purple;
-  border-radius: 5px;
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Encabezado */
 .encabezado {
   text-align: center;
-  background: purple;
-  color: white;
-  padding: 10px;
+  margin-bottom: 20px;
 }
 
-/* Formulario para escribir tareas */
-.entrada-tarea {
-  margin-top: 10px;
+.encabezado h1 {
+  color: #6a1b9a;
+}
+
+.pie {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 0.9em;
+  color: #888;
+}
+
+form {
   display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.entrada-tarea input {
+input[type="text"] {
   flex: 1;
-  padding: 5px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-.entrada-tarea button {
-  background: purple;
+button {
+  padding: 8px 12px;
+  background-color: #6a1b9a;
   color: white;
   border: none;
-  padding: 6px 10px;
-  margin-left: 5px;
+  border-radius: 4px;
   cursor: pointer;
 }
 
-/* Lista de tareas */
+button:hover {
+  background-color: #8e24aa;
+}
+
+
 .lista-tareas {
-  margin-top: 15px;
-  padding: 0;
   list-style: none;
+  padding: 0;
 }
 
 .tarea {
-  border: 1px solid purple;
-  padding: 5px;
-  margin-bottom: 5px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 4px;
 }
 
 .tarea.completada span {
@@ -62,11 +80,23 @@ body {
   color: gray;
 }
 
-/* Pie */
-.pie {
-  margin-top: 15px;
-  text-align: center;
-  font-size: 14px;
-  color: purple;
+
+.tarea div button {
+  margin-left: 5px;
+  background-color: #d32f2f;
+}
+
+.tarea div button:first-child {
+  background-color: #1976d2;
+}
+
+.tarea div button:hover {
+  opacity: 0.9;
+}
+
+
+.tarea.completada span {
+  text-decoration: line-through;
+  color: gray;
 }
 
