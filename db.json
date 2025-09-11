@@ -3,12 +3,12 @@
     {
       "id": "aaff",
       "texto": "hola",
-      "completada": true
+      "completada": false
     },
     {
-      "id": "9e8c",
-      "texto": "comer",
-      "completada": false
+      "id": "2b83",
+      "texto": "almorzar",
+      "completada": true
     }
   ]
 }

@@ -13,61 +13,64 @@ import {
 function App() {
   const [tareas, setTareas] = useState([]);
   const [tareasCompletadas, setTareasCompletadas] = useState([]);
-const [tareasPendientes, setTareasPendientes] = useState([]);
+  const [tareasPendientes, setTareasPendientes] = useState([]);
+  const [recargar, setRecargar] = useState(false);
 
-  // Cargar tareas al iniciar
   useEffect(() => {
     cargarTareas();
-  }, []);
-
-  //funcion para cargar tareas
+  }, [recargar]);
+// para cargar las tareas 
   async function cargarTareas() {
     const datos = await obtenerTareas();
-    const filtroPendientes= datos.filter((tarea)=>tarea.completada === false)
-    setTareasPendientes(filtroPendientes)
-    const filtroCompletas = datos.filter((tarea)=>tarea.completada === true)
-    setTareasCompletadas(filtroCompletas)
+    const filtroPendientes = datos.filter((tarea) => tarea.completada === false);
+    const filtroCompletas = datos.filter((tarea) => tarea.completada === true);
+    setTareasPendientes(filtroPendientes);
+    setTareasCompletadas(filtroCompletas);
     setTareas(datos);
   }
-
-  // Agregar tarea
+// para añadir una nueva tarea
   async function agregar(texto) {
     if (!texto.trim()) {
       alert("Ingrese un texto");
       return;
     }
-    const nueva = await agregarTarea(texto);
-    setTareas([...tareas, nueva]);
+    await agregarTarea(texto);
+    setRecargar(!recargar);
   }
-
-  // Cambiar estado completada
+// cambiar estado para pendientes y completadas
   async function cambiarEstado(id) {
     const tarea = tareas.find((t) => t.id === id);
+    if (!tarea) return;
+
     const actualizada = {
       ...tarea,
       completada: !tarea.completada
     };
-    const resultado = await editarTarea(id, actualizada);
-    const nuevas = tareas.map((t) => (t.id === id ? resultado : t));
-    setTareas(nuevas);
-  }
 
-  // Borrar tarea
+    try {
+      await editarTarea(id, actualizada);
+      setRecargar(!recargar);
+    } catch (error) {
+      console.error("Error al editar tarea:", error);
+    }
+  }
+ // editar texto por id
   async function borrar(id) {
-    await borrarTarea(id);
-    const nuevas = tareas.filter((t) => t.id !== id);
-    setTareas(nuevas);
+    try {
+      await borrarTarea(id);
+      setRecargar(!recargar);
+    } catch (error) {
+      console.error("Error al borrar tarea:", error);
+    }
   }
-
-  // Editar texto
+   //editar texto por id
   async function editarTexto(id, nuevoTexto) {
     if (!nuevoTexto.trim()) {
       alert("Ingrese un texto");
       return;
     }
-    const resultado = await editarTarea(id, { texto: nuevoTexto });
-    const nuevas = tareas.map((t) => (t.id === id ? resultado : t));
-    setTareas(nuevas);
+    await editarTarea(id, { texto: nuevoTexto });
+    setRecargar(!recargar);
   }
 
   return (
@@ -83,11 +86,14 @@ const [tareasPendientes, setTareasPendientes] = useState([]);
           borrarTarea={borrar}
           editarTexto={editarTexto}
         />
-
       )}
+
       <div>
         <header className="encabezado">
           <h1>Mi Lista de Tareas Completadas</h1>
+          <p className="contador-completadas">
+            Tareas completadas: {tareasCompletadas.length}
+          </p>
           {tareasCompletadas.length === 0 ? (
             <p className="mensaje-vacio">No existen tareas</p>
           ) : (
@@ -97,10 +103,10 @@ const [tareasPendientes, setTareasPendientes] = useState([]);
               borrarTarea={borrar}
               editarTexto={editarTexto}
             />
-
           )}
         </header>
       </div>
+
       <Footer />
     </div>
   );
