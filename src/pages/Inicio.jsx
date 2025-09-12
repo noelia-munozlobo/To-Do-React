@@ -1,8 +1,12 @@
 import React from 'react'
+import Sesion from '../components/sesion'
 
 const Inicio = () => {
   return (
-    <div>Inicio</div>
+    <div>
+      <Sesion />
+
+    </div>
   )
 }
 

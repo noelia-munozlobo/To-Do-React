@@ -1,6 +1,4 @@
-import React from 'react'
-
-const Registro = () => {
+const Sesion= () => {
   return (
     <div className="container mt-4">
       <h2>Registro</h2>
@@ -11,17 +9,6 @@ const Registro = () => {
             type="text"
             id="nombre"
             name="nombre"
-            className="form-control"
-            required
-          />
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="correo" className="form-label">Correo electrónico</label>
-          <input
-            type="email"
-            id="correo"
-            name="correo"
             className="form-control"
             required
           />
@@ -44,4 +31,4 @@ const Registro = () => {
   )
 }
 
-export default Registro
+export default Sesion
